@@ -17,7 +17,7 @@ class Application {
      * Contructor de la aplicacion.
      */
     public function __construct() {
-        $this->_config = $this->loadClass('config', 'includes');
+        $this->_config = $this->loadClass('config', INCLUDE_PATH);
         session_start();
         mb_internal_encoding($this->_config->encoding);
     }
@@ -28,7 +28,7 @@ class Application {
      * metodo adecuado.
      */
     public function route(){
-        $this->_router = $this->loadClass('Router', 'system');
+        $this->_router = $this->loadClass('Router', SYSTEM_PATH);
         $this->_router->configure($this->_config);
         $this->_router->match();
         $this->_router->segment();

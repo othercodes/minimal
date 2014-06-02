@@ -17,7 +17,7 @@ class Controller {
     public function __construct() {
         self::$instance =& $this;
         // iniciamos el cargador dinamico.
-        $this->load =& Application::loadClass('Load', 'system');
+        $this->load =& Application::loadClass('Load', SYSTEM_PATH);
         
         require INCLUDE_PATH."autoload.php";
         

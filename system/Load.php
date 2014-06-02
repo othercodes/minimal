@@ -18,7 +18,9 @@ class Load {
      * @param type $model
      */
     public function model($model){
-        include MODLS_PATH.$model.".php";
+        if(!@include MODLS_PATH.$model.".php"){
+            echo "Error loading ".$model." model";
+        }
         $instance =& Controller::getInstance();
         $instance->$model = new $model();
     }
@@ -55,7 +57,10 @@ class Load {
                 $$key = $value;
             }
         }
-        include VIEWS_PATH.$traverse['views'].".php";
+        
+        if(!@include VIEWS_PATH.$traverse['views'].".php"){
+            echo "Erro loading ".$traverse['views']." view";
+        }
         
         $instance->buffer .= ob_get_clean();
     }

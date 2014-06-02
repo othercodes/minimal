@@ -19,7 +19,9 @@ class Controller {
         // iniciamos el cargador dinamico.
         $this->load =& Application::loadClass('Load', SYSTEM_PATH);
         
-        require INCLUDE_PATH."autoload.php";
+        if(!@require INCLUDE_PATH."autoload.php"){
+            echo "Error loading autoload.php";
+        }
         
         if(count($classes)>0){
             foreach($classes as $class => $directory ){

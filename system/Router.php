@@ -23,7 +23,9 @@ class Router {
      * en el archivo de configuracion (includes/routes.php)
      */
     public function __construct() {
-        require INCLUDE_PATH."routes.php";
+        if(!@require INCLUDE_PATH."routes.php"){
+           echo "Error loading routes.php";
+        }
         $this->_routes = $route;
         
         if (isset($_GET['uri'])){

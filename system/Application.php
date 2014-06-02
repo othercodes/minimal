@@ -40,7 +40,9 @@ class Application {
      * llamada de los metodos con sus respectivos argumentos.
      */
     public function dispatch(){
-        include CTRLS_PATH.$this->_datagram['controller'].'.php';
+        if(!@include CTRLS_PATH.$this->_datagram['controller'].'.php'){
+            echo "Error loading ".$this->_datagram['controller']." controller";
+        }
         
         $class = ucfirst($this->_datagram['controller']);
         $this->_controller = new $class();

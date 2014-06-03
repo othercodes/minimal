@@ -1,6 +1,6 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * 
+ * RSS class reader.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0

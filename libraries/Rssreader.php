@@ -35,8 +35,8 @@ class Rssreader {
     
     /**
      * Explode the xml to find the items and return them like an array.
-     * @param type $limit
-     * @return type
+     * @param int $limit number of items displayed
+     * @return array
      */
     public function parseXml($limit = null){
         if($limit){

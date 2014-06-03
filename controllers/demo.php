@@ -7,7 +7,6 @@ class Demo extends Controller {
     }
     
     public function index() {
-        var_dump($this);
         $data['demo'] = 'Demo';    
         $this->load->view('demo',$data);
     }

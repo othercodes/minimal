@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Clase que actua como capa de enlace con la base de datos, basada en PDO.
+ * Class that acts as abstract layer with the database, based on PDO.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 2.8.20140310
@@ -9,50 +9,48 @@
 class Database {
     
     /**
-     * Contiene la configuracion de la BD.
+     * DB config.
      * @var type 
      */
     private $cfg;
     /**
-     * Objeto de conexion PDO.
+     * PDO object.
      * @var Object 
      */
     private $instance;
     
     /**
-     * Objeto de conexion para consultas preparadas.
+     * Prepared statements object.
      * @var Object
      */
     private $stmt;
     
     /**
-     * Array los datos de los errores.
+     * Errors Array.
      * @var array 
      */
     private $error = array();
     
     /**
-     * Variable centinela para transacciones. TRUE=OK / FALSE=FAIL
+     * State of the transaction. TRUE=OK / FALSE=FAIL
      * @var int
      */
     private $sentinel = TRUE;
     
     /**
-     * Filas afectadas por la consulta.
+     * Affected rows by a query.
      * @var int 
      */
     private $affectedRows = 0;
     
     /**
-     * Numero de filas de una consulta SELECT.
+     * Number of rows in a select.
      * @var int 
      */
     private $countRows = 0;
     
     /**
-     * Contructor de la clase de abstraccion, implementa de manera
-     * automatica el patron singletone ya que esta clase se contruye 
-     * como una propiedad del Controlador principal que usa este patron.
+     * Class constructor.
      */
     public function __construct() {
         require INCLUDE_PATH.'dbconfig.php';
@@ -65,13 +63,14 @@ class Database {
                     );
             return $this->instance;
         } catch (Exception $e) {
-            echo "Se ha producido un error en la conexion con la BD."; 
+            echo "There was an error in connection with the BD."; 
         }
     }
     
     /**
-     * Ejecuta una sentencia SQL.
-     * @param string $sql sentencia SQL a ejecutar.
+     * Executes an SQL statement
+     * @param type $sql SQL query to execute
+     * @param type $params params for the query
      */
     public function query($sql,$params = null) {
         if(isset($this->cfg->prefix)){
@@ -83,8 +82,8 @@ class Database {
     }
     
     /**
-     * Carga un unico resultado(campo).
-     * @return type
+     * Load one single result (one cell).
+     * @return mixed
      */
     public function loadResult(){
         $singleResult = $this->stmt->fetch(PDO::FETCH_NUM);
@@ -92,7 +91,7 @@ class Database {
     }
     
     /**
-     * Carga los valores de una sola columna.
+     * Load a column values.
      * @return array
      */
     public function loadColumn(){
@@ -105,9 +104,9 @@ class Database {
     }
 
     /**
-     * Transforma el resultado de una consulta en un objeto.
-     * @param string $class_name nombre de la clase del objeto.
-     * @return object objetos final
+     * Return a object with the result of the query like properties
+     * @param string $class_name class name, by default stdClass
+     * @return object
      */
     public function loadObject($class_name = "stdClass"){
         $object = $this->stmt->fetchObject($class_name);
@@ -115,10 +114,9 @@ class Database {
     }
     
     /**
-     * Devuelve una lista de objetos a partir de una consulta 
-     * de multiples resultados.
-     * @param string $class_name nombre de la clase del objeto.
-     * @return array lista de objetos.
+     * Return an array of objects.
+     * @param string $class_name class name, by default stdClass
+     * @return array
      */
     public function loadObjectList($class_name = "stdClass"){
         $objectList = array();
@@ -130,7 +128,7 @@ class Database {
     }
     
     /**
-     * Trasforma el resultado de UNA SOLA LINEA en una array asociada php.
+     * Return a single assoc array.
      * @return array 
      */
     public function loadAssocRow(){
@@ -139,8 +137,8 @@ class Database {
     }
     
     /**
-     * Transforma la matriz de resultado MySQL en una matriz asociada php.
-     * @return array matriz php de datos.
+     * Return a list of assoc arrays
+     * @return array 
      */
     public function loadAssocList(){
         $assocList = array();
@@ -152,7 +150,7 @@ class Database {
     }
     
     /**
-     * Trasforma el resultado de UNA SOLA LINEA en una array indexada php.
+     * Return a sigle indexed array.
      * @return array 
      */
     public function loadIndexedRow(){
@@ -161,8 +159,8 @@ class Database {
     }
     
     /**
-     * Transforma la matriz de resultado MySQL en una matriz indexada php.
-     * @return array matriz php de datos.
+     * Return a list of indexed arrays.
+     * @return array 
      */
     public function loadIndexedList(){
         $indexedList = array();
@@ -174,7 +172,7 @@ class Database {
     }
     
     /**
-     * Devuleve el resultado de una sola linea a notacion JSON.
+     * Return a sigle row query like JSON
      * @return string
      */
     public function loadJsonObject(){
@@ -183,7 +181,7 @@ class Database {
     }
     
     /**
-     * Devuleve el resultado en un array en notacion JSON.
+     * Return multi row result like JSON.
      * @return string
      */
     public function loadJsonObjectList(){
@@ -199,11 +197,11 @@ class Database {
     }
     
     /**
-     * Devuelve el resultado en fomrato XML.
-     * @param string $version version del documento XML.
-     * @param string $encoding encodeo del documento XML.
-     * @param string $root elemento padre del documento.
-     * @param string $elementName nombre de cada nodo hijo.
+     * Return multi row result like XML.
+     * @param string $version version of the XML.
+     * @param string $encoding encoding of the XML.
+     * @param string $root father element of the document
+     * @param string $elementName child elements of the documents.
      * @return string
      */
     public function loadXmlDocument($file = null, $root = 'query',$elementName = 'entry'){
@@ -233,7 +231,7 @@ class Database {
     }
     
     /**
-     * Inicia una transaccion.
+     * Start a transaction.
      */
     public function startTransaction(){
         $this->instance->beginTransaction();
@@ -242,11 +240,8 @@ class Database {
     }
     
     /**
-     * Verifica si las transacciones se han realizado de forma correcta, en 
-     * ese caso se confirma la escritura en BD, en caso contrario se realiza
-     * un rollback. Este metodo verifica UPDATE, INSERT y DELETE.
-     * IMPORTANTE: NO USAR UN SELECT EN LA TRANSACCION. 
-     * @return int devuelve 1 para el commit o 0 para el rollback
+     * Checks if the transaction was successful
+     * @return int return 1 on commit or 0 at rollback
      */
     public function endTransaction(){
        if ($this->sentinel === TRUE) {
@@ -258,15 +253,15 @@ class Database {
     }
     
     /**
-     * Devuleve el numero de filas afectadas en la consulta.
-     * @return int numero de filas afectadas.
+     * Return the affected rows
+     * @return int
      */
     public function getAffectedRows(){
         return $this->affectedRows;
     }
     
     /**
-     * Devuelve el contador de filas.
+     * Return the num rows
      * @return int
      */
     public function getCountRows(){
@@ -274,8 +269,8 @@ class Database {
     }
 
     /**
-     * Devuleve el ultimo error producido en la conexion con la base de datos
-     * @return array datos del error ['code'] y ['desc'].
+     * Return the last query error.
+     * @return array
      */
     public function getError(){
         $e = array();
@@ -286,7 +281,7 @@ class Database {
     }
     
     /**
-     * Obtiene el ultimo id insertado
+     * Return the last inserted id.
      * @return type
      */
     public function getLastId(){
@@ -294,14 +289,14 @@ class Database {
     }
     
     /**
-     * Comprueba si la consulta se a realizado de manera correcta o no.
+     * Checks if the query was successful
      */
     private function checkQuery(){
         $this->error = $this->stmt->errorInfo();
         if ($this->error[0] != 00000) {
             $this->sentinel = FALSE;
         }
-        // simpre que se realiza un SELECT esto pone $sentinel a 1
+        // always return 1 on a SELECT
         $this->affectedRows = $this->stmt->rowCount();
         if ($this->affectedRows == 0){
             $this->sentinel = FALSE;
@@ -309,8 +304,8 @@ class Database {
     }
     
     /**
-     * Comprueba si existen caracteres ilegales en el valor del campo
-     * para marcarlo como elemento CDATA.
+     * Check illegal characters in the field value 
+     * to mark it as a CDATA element.
      * @param mixed $value
      * @return boolean 
      */

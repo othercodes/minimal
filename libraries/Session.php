@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Gestiona las interacciones con la variable $_SESSION
+ * Manages interactions with $ _SESSION variable
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0
@@ -13,7 +13,7 @@ class Session {
     }
     
     /**
-     * Obtiene los valores almacenados en una varible de sesion.
+     * Gets the values ​​stored in a session variable.
      * @param string $index
      * @return mixed
      */
@@ -31,7 +31,7 @@ class Session {
     }
     
     /**
-     * Establece una variable de sesion
+     * Set a session variable.
      * @param string $index
      * @param mixed $value
      * @return boolean
@@ -44,7 +44,7 @@ class Session {
     }
     
     /**
-     * Devuelve el ID de sesion
+     * Returns the session ID.
      * @param string $id
      * @return string
      */
@@ -53,7 +53,7 @@ class Session {
     }
     
     /**
-     * Devuelve el estado de la sesion.
+     * Returns the session state.
      * @return array
      */
     public function sessionStatus(){
@@ -61,7 +61,7 @@ class Session {
     }
     
     /**
-     * Purga las variables personalizadas de sesion.
+     * Purge custom session variables.
      * @return boolean
      */
     public function sessionPurge(){
@@ -69,7 +69,7 @@ class Session {
     }
     
     /**
-     * Destruye la sesion COMPLETA.
+     * Destroy the FULL session.
      * @return boolean
      */
     public function sessionDestroy(){

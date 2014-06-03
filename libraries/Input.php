@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Control de datos de entrada.
+ * Input control class.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0
@@ -10,11 +10,11 @@
 class Input {
     
     function __construct() {
-
+        //do something
     }
     
     /**
-     * Permite obtener los datos mediante el metodo POST
+     * Get data from POST method
      * @param string $index
      * @return mixed
      */
@@ -30,7 +30,7 @@ class Input {
     }
     
     /**
-     * Permite obtener los datos mediante el metodo POST
+     * Get data from GET method
      * @param string $index
      * @return mixed
      */

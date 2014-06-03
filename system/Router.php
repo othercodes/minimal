@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Permite validar url y direccionar las peticiones de los usuarios a 
- * los controladores y metodos correspondientes
+ * Allows validate url and redirect requests from users 
+ * to the controllers and corresponding methods
  * @author David Unay Santisteban <slavepens@gamil.com>
  * @package SlaveFramework
  * @version 1.0
@@ -19,8 +19,8 @@ class Router {
             );
     
     /**
-     * Inicia el router, importa las rutas declaradas
-     * en el archivo de configuracion (includes/routes.php)
+     * Starts the router and import ths paths defined in 
+     * includes/router.php file  
      */
     public function __construct() {
         if(!@require INCLUDE_PATH."routes.php"){
@@ -40,19 +40,19 @@ class Router {
     }
     
     /**
-     * 
+     * Configure if the offline state
      */
-    public function configure($params = null){
-        if($params->offline == 1){
+    public function configure(){
+        if(Application::loadConfig('offline') == 1){
             $this->_path = $this->_routes['default_offline'];
             return;
         }
     }
     
     /**
-     * Valida si la ruta introducida es aceptada o no por el sistema,
-     * reemplazando las "wildcard" por expresiones regulares para 
-     * interpretar rutas dinamicas.
+     * Validates whether the entered path is accepted by the system, 
+     * replacing the "wildcard" for regular expressions to 
+     * interpret dynamic routes.
      * @return
      */
     public function match() {
@@ -88,16 +88,15 @@ class Router {
     }
     
     /**
-     * Segmenta la ruta final para su posterior direccionamiento
+     * Segments the final route for subsequent routing
      */
     public function segment(){
         $this->_segments = explode("/", $this->_path);
     }
     
     /**
-     * Establece la direccion final que usara el sistema, es decir
-     * configura el sistema para que llame a un controlador, dado con
-     * un metodo dado, con sus parametros, si es que existen.
+     * I set the system to call a driver, as with 
+     * a given method, with its parameters, if any.
      * @return array
      */
     public function dispatch() {

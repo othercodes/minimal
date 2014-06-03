@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Gestiona los permisos de los archivos de un directorio.
+ * Manage permissions for files in a directory.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @copyright (c) 2014, David Unay Santisteban
@@ -14,7 +14,7 @@ class Permission {
     private $_path;
     
     /**
-     * Contrsuctor del objeto.
+     * Class constructor.
      * @param string $path
      */
     public function __construct($path = null) {
@@ -22,7 +22,7 @@ class Permission {
     }
     
     /**
-     * Establece la ruta.
+     * Set the path.
      * @param string $path
      */
     public function setPath($path = null){
@@ -38,8 +38,8 @@ class Permission {
     
     /**
      * Cambia los permisos de un archivo dado.
-     * @param string $perms nuevos permisos, en octal. 
-     * @param string $file ruta del archivo.
+     * @param string $perms new permissions 
+     * @param string $file path to the directory
      * @return boolean
      */
     public function setPerms($perms,$file){
@@ -47,11 +47,11 @@ class Permission {
     }
     
     /**
-     * Cambia todos los permisos de los archivos o directorios de un directorio dado.
-     * @param string $perms nuevos permisos.
-     * @param boolean $recursive establece si el cambio es recursivo o no.
-     * @param string $affected establece que elementos que seran afetados, ALL|FILE|DIR
-     * @param string $path ruta del directorio.
+     * Change all permissions of files or directories in a given directory.
+     * @param string $perms new permissions
+     * @param boolean $recursive Sets whether or not change is recursive
+     * @param string $affected set the elements that will be affected, ALL|FILE|DIR
+     * @param string $path path to the directory
      * @return boolean
      */
     public function setAllPerms($perms, $recursive = FALSE, $affected = 'ALL' ,$path = null){  
@@ -86,7 +86,7 @@ class Permission {
     }
     
     /**
-     * Obtiene los permisos de un archivo.
+     * Gets the permissions of a file.
      * @param string $file
      * @return array
      */
@@ -97,25 +97,25 @@ class Permission {
             // Socket
             $type = 's';
         } elseif (($permisos & 0xA000) == 0xA000) {
-            // Enlace Simbólico
+            // Symbolic link
             $type = 'l';
         } elseif (($permisos & 0x8000) == 0x8000) {
             // Regular
             $type = '-';
         } elseif (($permisos & 0x6000) == 0x6000) {
-            // Especial Bloque
+            // Special block
             $type = 'b';
         } elseif (($permisos & 0x4000) == 0x4000) {
-            // Directorio
+            // Directory
             $type = 'd';
         } elseif (($permisos & 0x2000) == 0x2000) {
             // Especial Carácter
             $type = 'c';
         } elseif (($permisos & 0x1000) == 0x1000) {
-            // Tubería FIFO
+            // FIFO Pipe
             $type = 'p';
         } else {
-            // Desconocido
+            // Unknown
             $type = 'u';
         }
 
@@ -147,7 +147,7 @@ class Permission {
     }
 
     /**
-     * Obtiene todos los permisos de los archivos de un directorio dado.
+     * Get all the permissions of the files in a given directory.
      * @param boolean $recursive 
      * @param string $path
      * @return array

@@ -1,8 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Gestiona la seguridad de los elemetos de e/s 
- * y ofrece varias funciones de cifrado.
+ * It offers several security features.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0.20140520
@@ -15,8 +14,8 @@ class Security {
     }
     
     /**
-     * Devuelve una cadena de $length caracteres aleatoria 
-     * @param int $length longitud de caracteres.
+     * Returns a string of random characters with $length length. 
+     * @param int $length
      * @return string
      */
     public function newSalt($length = 15) {
@@ -29,8 +28,7 @@ class Security {
     }
     
     /**
-     * Comprueba si una cadena de caracteres contiene 
-     * caracteres no ASCII
+     * Checks if a string contains non ASCII characters
      * @param string $str
      * @return boolean
      */
@@ -42,7 +40,7 @@ class Security {
     }
     
     /**
-     * Hashea una contraseña dada usando MD5 y un salt dato
+     * Hash a password using MD5 and given salt
      * @param string $salt 
      * @param string $password
      * @return string

@@ -1,11 +1,10 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Verifica si los archivos de un directorio han sido alterados.
+ * Check if files in a directory have been altered.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @copyright (c) 2014, David Unay Santisteban
- * @license http://www.gnu.org/licenses/gpl.txt GPLv3 
  */
 class integrity {
     
@@ -13,7 +12,7 @@ class integrity {
     protected $_tree = array();
     
     /**
-     * Prepara la ruta para iniciar la comprobacion.
+     * Class constructor.
      * @param string $path
      */
     public function __construct($path = null) {
@@ -21,7 +20,7 @@ class integrity {
     }
     
     /**
-     * Establece la ruta.
+     * Set the path.
      * @param string $path
      */
     public function setPath($path = null){
@@ -36,9 +35,9 @@ class integrity {
     }
     
     /**
-     * Verifica las firmas MD5 de los archivos y los cruza con los del archivo
-     * dado para ver diferencias.
-     * @param string $file
+     * Check the MD5 file signatures and crosses with file 
+     * given for diff.
+     * @param string $file filename
      * @return array 
      */
     public function checkMD5Hashes($file){
@@ -53,19 +52,19 @@ class integrity {
         }
         $modifies = array();
         $this->_getFileList();
-        /* busca los archivos añadidos */
+        /* search added files */
         foreach($this->_tree as $key => $value){
             if(!array_key_exists($key, $hashes)) {
                 $modifies[] = $this->_getFileStats($key,'added');  
             }
         }
-        /* busca archivos eliminados */
+        /* search deleted files */
         foreach($hashes as $key => $value){            
             if(!array_key_exists($key, $this->_tree)) {
                 $modifies[] = $this->_reportFileMissing($key); 
             }
         }
-        /* busca archivos modificados */
+        /* search modified files */
         foreach($this->_tree as $key => $value){
             if(array_key_exists($key, $hashes)) {
                 if($value != $hashes[$key]){
@@ -78,8 +77,8 @@ class integrity {
     }   
     
     /**
-     * Genera un archivo con las firmas md5 de los archivos del 
-     * directorio dado.
+     * Generate a file with md5 signature of the files 
+     * of the given directory.
      * @param string $file
      * @return boolean
      */
@@ -96,8 +95,8 @@ class integrity {
     }
     
     /**
-     * Genera un array con la ruta, nombre y firma MD5 de cada archivo
-     * de la ruta introducida.
+     * Generate an array with path, name and signature of each file MD5 
+     * in the entered path.
      * @param string $path
      * @return boolean
      */
@@ -123,7 +122,7 @@ class integrity {
     }
     
     /**
-     * Obtiene los metadatos de un archivo dado.
+     * Get the metadata for a given file.
      * @param string $file
      * @return array
      */
@@ -143,7 +142,7 @@ class integrity {
     }
     
     /**
-     * Declara un archivo como eliminado 
+     * Declares a file as deleted.
      * @params string $file
      * @return array
      */

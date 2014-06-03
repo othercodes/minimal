@@ -1,6 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Controlador de sitio Offline, se activa cuando el sitio esta desactivado.
+ * Default "offline" controller here you can custom the 
+ * offline page.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0
@@ -14,9 +15,10 @@ class Offline extends Controller {
 
     
     public function index(){
-        $data['title'] = "Sitio Desactivado";
-        $data['message'] = "El sitio esta desactivo, vuelva mas tardem gracias.";
-        
+        // set message
+        $data['title'] = "The site is offline";
+        $data['message'] = "The site is under maintenance, come back later, thanks";
+        // load data in the template
         $this->load->view('system/offline',$data);
     }
 }

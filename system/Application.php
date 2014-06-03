@@ -1,6 +1,6 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Clase principal que arrancara el sistema.
+ * Bootstrap Class
  * @author David Unay Santisteban <slavepens@gamil.com>
  * @package SlaveFramework
  * @version 1.0
@@ -14,30 +14,28 @@ class Application {
     private $_datagram = array();
     
     /**
-     * Contructor de la aplicacion.
+     * App contructor.
      */
     public function __construct() {
-        $this->_config = $this->loadClass('config', INCLUDE_PATH);
+        $this->_router = $this->loadClass('Router', SYSTEM_PATH);
+        mb_internal_encoding(self::loadConfig('encoding'));
         session_start();
-        mb_internal_encoding($this->_config->encoding);
     }
     
     /**
-     * Llama al router y realiza el enrutamiento de la 
-     * ruta solicitada, para llamar al controlador y 
-     * metodo adecuado.
+     * Route the app to get the controller, method and arguments
+     * to execute.
      */
     public function route(){
-        $this->_router = $this->loadClass('Router', SYSTEM_PATH);
-        $this->_router->configure($this->_config);
+        $this->_router->configure();
         $this->_router->match();
         $this->_router->segment();
         $this->_datagram = $this->_router->dispatch();
     }
     
     /**
-     * Carga el controlador especificado por el router y ejecuta la
-     * llamada de los metodos con sus respectivos argumentos.
+     * Loads the specified controller and methods 
+     * with arguments by the router.
      */
     public function dispatch(){
         if(!@include CTRLS_PATH.$this->_datagram['controller'].'.php'){
@@ -50,12 +48,11 @@ class Application {
         if(isset($this->_datagram['method'])){
             $method = $this->_datagram['method'];
         } else {
-            //metodo por defecto
+            //default method
             $method = 'index';
         }
 
         if(method_exists($class,$method)){
-
             if(isset($this->_datagram['args'])){
                 $args = $this->_datagram['args'];
             } else {
@@ -68,23 +65,37 @@ class Application {
     }
     
     /**
-     * Renderiza el resultado final de la aplicaicon.
+     * Render the app.
      */
     public function render(){
         print $this->_controller->buffer;
     }
     
     /**
-     * Se encarga de iniciar cada clase soliciada como propiedad
-     * del controlador permitiendo hacer uso de la misma desde 
-     * cualquier parte de la aplicacion como si de un super objeto
-     * se tratase.
+     * Is responsible for initiating each class as property 
+     * allowing the controller to use it from 
+     * any part of the application as a super object.
      * @param string $class
      * @param string $directory
      * @return object
      */
     public static function loadClass($class,$directory){
-        require $directory.DS.$class.'.php';
+        if(!@require_once $directory.DS.$class.'.php'){
+            echo "Error loading ".$class." .php";
+        }
         return new $class();
+    }
+    
+    /**
+     * Return the requested config value.
+     * @param string $key config key.
+     * @return mixed
+     */
+    public static function loadConfig($key){
+        if(!@require_once INCLUDE_PATH."config.php"){
+            echo "Error loading config file.";
+        }
+        $cfg = new Config();
+        return $cfg->$key;
     }
 }

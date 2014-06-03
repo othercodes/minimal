@@ -1,8 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Lista de clases y librerias de funciones que se quieren 
- * cargar al iniciar la aplicacion, estas librerias siempre 
- * estaran disponibles si se incluyen aqui.
+ * List of classes that are loaded when you start the application, 
+ * these libraries always be available if they are included here.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0

@@ -1,7 +1,6 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Controlador Principal de la aplicaicon, de este heredaran 
- * todos los demas controladores.
+ * Main application controller, this inherited all other drivers.
  * @author David Unay Santisteban <slavepens@gamil.com>
  * @package SlaveFramework
  * @version 1.0
@@ -11,18 +10,17 @@ class Controller {
     private static $instance;
     
     /**
-     * Contruimos el Controlador Principal, en el cual se 
-     * precargaran varias clases propias del sistema.
+     * Constructor of the main Controller.
      */
     public function __construct() {
         self::$instance =& $this;
-        // iniciamos el cargador dinamico.
+        // init the dinamic loader
         $this->load =& Application::loadClass('Load', SYSTEM_PATH);
-        
+        // import the autoload list
         if(!@require INCLUDE_PATH."autoload.php"){
             echo "Error loading autoload.php";
         }
-        
+        // load the default classes
         if(count($classes)>0){
             foreach($classes as $class => $directory ){
                 $object = strtolower($class);
@@ -32,7 +30,7 @@ class Controller {
     }
     
     /**
-     * Devuelve la instancia actual del controlador.
+     * Return the controller instance.
      * @return object 
      */
     public static function &getInstance(){

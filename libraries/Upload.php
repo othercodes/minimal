@@ -1,11 +1,11 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Clase que permite gestionar las subidas de archivos al servidor.
+ * Managing file uploads to the server.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @copyright (c) 2014, David Unay Santisteban
- * @version 1.0.20140301
+ * @version 1.0
  */
 class Upload {
     
@@ -16,13 +16,13 @@ class Upload {
     private $storedFileExt;
     
     /**
-     * Crea el objeto de subida.
+     * Class constructor.
      */
     public function __construct() {}
     
     /**
-     * Inicia la subida.
-     * @param type $uploadedFile
+     * Start the upload.
+     * @param file $uploadedFile
      */
     public function uploadFile($uploadedFile){
         if($uploadedFile['error'] == 0){
@@ -33,10 +33,10 @@ class Upload {
     }
 
     /**
-     * Valida la extension, el tipo y el tamaño del archivo
-     * @param array $allowedSize tamaño maximo en MB.
-     * @param array $allowedExt lista de extensiones.
-     * @param array $allowedTypes lista de tipos MIME validos.
+     * Validate the extent, type and file size
+     * @param array $allowedSize size in MB
+     * @param array $allowedExt valid extension
+     * @param array $allowedTypes valid MIME types
      * @return boolean
      */
     public function validate($allowedSize, $allowedExt, $allowedTypes) {
@@ -56,7 +56,7 @@ class Upload {
     }
     
     /**
-     * Guarda el archivo en el directorio dado.
+     * Save the file in the given directory.
      * @param string $path
      * @return boolean
      */
@@ -76,7 +76,7 @@ class Upload {
     }
     
     /**
-     * Renombra el archivo subido.
+     * Rename the uploaded file.
      * @param string $new_name
      */
     public function rename($new_name){
@@ -88,7 +88,7 @@ class Upload {
     }
     
     /**
-     * Añade un prefijo al archivo subido.
+     * Add a prefix to the file uploaded.
      * @param type $prefix
      * @return boolean
      */

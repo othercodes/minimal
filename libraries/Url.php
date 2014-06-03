@@ -1,7 +1,7 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
 /**
- * Clase para controlar las url del sistema.
+ * Class to control the system url.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0
@@ -9,12 +9,15 @@
 
 class Url {
 
+    /**
+     * Class constructor
+     */
     public function __construct() {
-    
+        // do something
     }
     
     /**
-     * Devuelve la URL base del sistema
+     * Returns the base URL of the system
      * @return string
      */
     public static function basePath(){
@@ -22,7 +25,7 @@ class Url {
     }
     
     /**
-     * Crea una ruta en base a la URL del sistema
+     * Create a route based on the URL of the system
      * @param string $path
      */
     public static function setUrl($path){
@@ -31,7 +34,7 @@ class Url {
     }
 
     /**
-     * Redirecciona a una ruta dada.
+     * Redirect to a given page.
      * @param string $page
      */
     public static function redirect($page){

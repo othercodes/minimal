@@ -1,15 +1,15 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Definiciones de las url de acceso. 
+ * Definition of the url access. 
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0
  */
 
-/* rutas por defecto NO BORRAR.*/
+/* Default routes, DO NOT DELETE!!! */
 $route['default_controller'] = 'home';
 $route['default_404'] = 'notfound';
 $route['default_offline'] = 'offline';
-/* rutas definidas por el usuario */
+/* user-defined routes */
 $route['home'] = 'demo';
 

@@ -1,6 +1,6 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Clase de configuracion para la base de datos.
+ * Class configuration for the database.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0

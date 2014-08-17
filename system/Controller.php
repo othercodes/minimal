@@ -16,6 +16,8 @@ class Controller {
         self::$instance =& $this;
         // init the dinamic loader
         $this->load =& Application::loadClass('Load', SYSTEM_PATH);
+        // init the system logger 
+        $this->logger =& Application::loadClass('Logger', SYSTEM_PATH);
         // import the autoload list
         if(!@require INCLUDE_PATH."autoload.php"){
             echo "Error loading autoload.php";

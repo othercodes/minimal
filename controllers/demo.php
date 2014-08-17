@@ -6,9 +6,9 @@ class Demo extends Controller {
         parent::__construct();
     }
     
-    public function index() {
+    public function index() {        
         $data['demo'] = 'Demo';    
-        $this->load->view('demo',$data);
+        $this->load->view('demo',$data);     
     }
 
 }

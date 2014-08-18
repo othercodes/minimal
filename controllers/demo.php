@@ -8,7 +8,7 @@ class Demo extends Controller {
     
     public function index() {        
         $data['demo'] = 'Demo';    
-        $this->load->view('demo',$data);     
+        $this->load->view('demo',$data);
     }
 
 }

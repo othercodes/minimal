@@ -8,10 +8,10 @@
 class Application {
     
     protected $_config;
-    
     private $_router;
     private $_controller;
     private $_datagram = array();
+    private $_cache;
     
     /**
      * App contructor.
@@ -38,7 +38,7 @@ class Application {
      * with arguments by the router.
      */
     public function dispatch(){
-        if(!@include CTRLS_PATH.$this->_datagram['controller'].'.php'){
+        if(!@include_once CTRLS_PATH.$this->_datagram['controller'].'.php'){
             echo "Error loading ".$this->_datagram['controller']." controller";
         }
         
@@ -60,8 +60,7 @@ class Application {
             }
             // ejecutamos el metodo con sus argumentos, si es que existen.
             call_user_func_array(array($this->_controller,$method),$args);
-        }
-        
+        } 
     }
     
     /**
@@ -80,8 +79,8 @@ class Application {
      * @return object
      */
     public static function loadClass($class,$directory){
-        if(!@require_once $directory.DS.$class.'.php'){
-            echo "Error loading ".$class." .php";
+        if(!@include_once $directory.DS.$class.'.php'){
+            echo "Error loading ".$class.".php class.";
         }
         return new $class();
     }
@@ -92,7 +91,7 @@ class Application {
      * @return mixed
      */
     public static function loadConfig($key){
-        if(!@require_once INCLUDE_PATH."config.php"){
+        if(!@include_once INCLUDE_PATH."config.php"){
             echo "Error loading config file.";
         }
         $cfg = new Config();

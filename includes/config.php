@@ -11,4 +11,6 @@ class Config {
     public $offline = 0;
     public $encoding = 'UTF-8';
     public $language = 'en_US';
+    public $log = 'logs';
+    public $cache = 'cache';
 }

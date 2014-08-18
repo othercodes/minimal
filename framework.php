@@ -4,8 +4,8 @@
 error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 /* Import the definition file paths. */
-if(!@require 'includes/defines.php'){
-    echo "Error loading defines.php";
+if(!@include 'includes/defines.php'){
+    die ("Error loading defines.php");
 }
 
 /* Load the main system libraries. */

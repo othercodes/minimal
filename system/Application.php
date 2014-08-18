@@ -8,16 +8,21 @@
 class Application {
     
     protected $_config;
+    
     private $_router;
+    private $_cache;
     private $_controller;
     private $_datagram = array();
-    private $_cache;
+    private $_benchmark;
+
     
     /**
      * App contructor.
      */
     public function __construct() {
         $this->_router = $this->loadClass('Router', SYSTEM_PATH);
+        $this->_benchmark = $this->loadClass('Benchmark', SYSTEM_PATH);
+        $this->_cache = $this->loadClass('Cache', SYSTEM_PATH);
         mb_internal_encoding(self::loadConfig('encoding'));
         session_start();
     }
@@ -31,15 +36,17 @@ class Application {
         $this->_router->match();
         $this->_router->segment();
         $this->_datagram = $this->_router->dispatch();
+        $this->_benchmark->mark("route_complete");
     }
     
     /**
      * Loads the specified controller and methods 
      * with arguments by the router.
      */
-    public function dispatch(){
+    public function dispatch(){ 
+        
         if(!@include_once CTRLS_PATH.$this->_datagram['controller'].'.php'){
-            echo "Error loading ".$this->_datagram['controller']." controller";
+            die ("Error loading ".$this->_datagram['controller']." controller");
         }
         
         $class = ucfirst($this->_datagram['controller']);
@@ -58,16 +65,34 @@ class Application {
             } else {
                 $args = array(null);
             }
-            // ejecutamos el metodo con sus argumentos, si es que existen.
-            call_user_func_array(array($this->_controller,$method),$args);
-        } 
+            
+            // is cache system enabled?
+            if($this->_cache->enable == 1){
+                // check cache file life time
+                $this->_cache->check($this->_router->getPath());
+                if(!$this->_cache->showcache){
+                    // ejecutamos el metodo con sus argumentos, si es que existen.
+                    call_user_func_array(array($this->_controller,$method),$args);
+                }
+            } else {
+                // ejecutamos el metodo con sus argumentos, si es que existen.
+                call_user_func_array(array($this->_controller,$method),$args);
+            }
+        }
+        $this->_benchmark->mark("dispatch_complete");
     }
     
     /**
      * Render the app.
      */
-    public function render(){
-        print $this->_controller->buffer;
+    public function render(){  
+        if($this->_cache->enable == 1){
+            print $this->_cache->dump();
+        } else {
+            print $this->_controller->buffer;
+        }
+        $this->_benchmark->mark("render_complete");
+        $this->_benchmark->report();
     }
     
     /**
@@ -80,7 +105,7 @@ class Application {
      */
     public static function loadClass($class,$directory){
         if(!@include_once $directory.DS.$class.'.php'){
-            echo "Error loading ".$class.".php class.";
+            die ("Error loading ".$class.".php class.");
         }
         return new $class();
     }
@@ -92,7 +117,7 @@ class Application {
      */
     public static function loadConfig($key){
         if(!@include_once INCLUDE_PATH."config.php"){
-            echo "Error loading config file.";
+            die ("Error loading config file.");
         }
         $cfg = new Config();
         return $cfg->$key;

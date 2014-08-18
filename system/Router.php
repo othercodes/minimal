@@ -113,5 +113,11 @@ class Router {
         }
         return $this->_address;
     }
-
+    
+    /**
+     * Returns the currents url path.
+     */
+    public function getPath(){
+        return $this->_path;
+    }
 }

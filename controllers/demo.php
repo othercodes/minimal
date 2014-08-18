@@ -10,5 +10,4 @@ class Demo extends Controller {
         $data['demo'] = 'Demo';    
         $this->load->view('demo',$data);
     }
-
 }

@@ -7,17 +7,17 @@
  */
 class Logger {
     
-    private $folder;
-    private $file = 'system.log';
+    private $_folder;
+    private $_file = 'system.log';
     
     /**
      * Logger class constructor, create the system.log file in the 
      * directory set in the config file.
      */
     public function __construct() {
-        $this->folder = Application::loadConfig('log');
-        if(!is_readable($this->folder.DS.$this->file)){
-            file_put_contents($this->folder.DS.$this->file,'');
+        $this->_folder = Application::loadConfig('log_path');
+        if(!is_readable($this->_folder.DS.$this->_file)){
+            file_put_contents($this->_folder.DS.$this->_file,'');
         }
     }
     
@@ -26,8 +26,8 @@ class Logger {
      * @return type
      */
     public function getLog(){
-        if(!is_readable($this->folder.DS.$this->file)){
-            $log = file_get_contents($this->folder.DS.$this->file);
+        if(!is_readable($this->_folder.DS.$this->_file)){
+            $log = file_get_contents($this->_folder.DS.$this->_file);
         }
         return $log;
     }
@@ -38,9 +38,9 @@ class Logger {
      */
     public function log($message){
         $message = date("Y-m-d H:i:s")." ".$message."\n";
-        $bytes = file_put_contents($this->folder.DS.$this->file, $message, FILE_APPEND);
+        $bytes = file_put_contents($this->_folder.DS.$this->_file, $message, FILE_APPEND);
         if($bytes <= 0){
-            echo "Cannot write to ".$this->file;
+            echo "Cannot write to ".$this->_file;
         }
     }
      

@@ -53,7 +53,9 @@ class Database {
      * Class constructor.
      */
     public function __construct() {
-        require INCLUDE_PATH.'dbconfig.php';
+        if(!@include INCLUDE_PATH.'dbconfig.php'){
+            die ("Error loading dbconfig.php.");
+        }
         $this->cfg = new Dbconfig();  
         try {
             $this->instance = new PDO(
@@ -63,7 +65,7 @@ class Database {
                     );
             return $this->instance;
         } catch (Exception $e) {
-            echo "There was an error in connection with the BD."; 
+            die ("There was an error in connection with the BD."); 
         }
     }
     

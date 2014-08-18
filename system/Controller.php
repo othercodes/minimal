@@ -19,7 +19,7 @@ class Controller {
         // init the system logger 
         $this->logger =& Application::loadClass('Logger', SYSTEM_PATH);
         // import the autoload list
-        if(!@require INCLUDE_PATH."autoload.php"){
+        if(!@include INCLUDE_PATH."autoload.php"){
             echo "Error loading autoload.php";
         }
         // load the default classes

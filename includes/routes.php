@@ -12,5 +12,4 @@ $route['default_404'] = 'notfound';
 $route['default_offline'] = 'offline';
 /* user-defined routes */
 $route['home'] = 'demo';
-
-
+$route['demo/api/(:str)'] = array('demo/api/$1','POST');

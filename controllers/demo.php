@@ -10,4 +10,9 @@ class Demo extends Controller {
         $data['demo'] = 'Demo';    
         $this->load->view('demo',$data);
     }
+    
+    public function api($name){
+        $user['name'] = $name;
+        echo json_encode($user);
+    }
 }

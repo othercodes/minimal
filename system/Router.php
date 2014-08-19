@@ -12,6 +12,7 @@ class Router {
     private $_routes;
     private $_segments;
     private $_address;
+    private $_method;
     private $_patterns = array(
             '(:str)' => '[a-zA-Z]+',
             '(:int)' => '[0-9]+',
@@ -27,6 +28,7 @@ class Router {
            echo "Error loading routes.php";
         }
         $this->_routes = $route;
+        
         
         if (isset($_GET['uri'])){
            $this->_path = $_GET['uri'];
@@ -58,7 +60,19 @@ class Router {
     public function match() {
         
         $this->_tmp = explode("/", $this->_path);
-        foreach ($this->_routes as $ruta => $direccion) {
+        foreach ($this->_routes as $ruta => $llamada) {
+            
+            if(is_array($llamada)){
+                $direccion = $llamada[0];
+                $this->_method = $llamada[1];
+            } else {
+                $direccion = $llamada;
+                $this->_method = "GET";
+            }
+
+            if($this->_method != $_SERVER['REQUEST_METHOD']){
+                die(header("HTTP/1.0 404 Not Found"));
+            }
             
             foreach($this->_patterns as $wildCard => $pattern){
                 $ruta = str_replace($wildCard, $pattern, $ruta);

@@ -15,4 +15,5 @@ class Config {
     public $cache = 1;
     public $cache_path = 'cache';
     public $cachetime = '3600';
+    public $debug = 1;
 }

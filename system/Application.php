@@ -20,11 +20,12 @@ class Application {
      * App contructor.
      */
     public function __construct() {
-        $this->_router = $this->loadClass('Router', SYSTEM_PATH);
         $this->_benchmark = $this->loadClass('Benchmark', SYSTEM_PATH);
+        $this->_router = $this->loadClass('Router', SYSTEM_PATH);
         $this->_cache = $this->loadClass('Cache', SYSTEM_PATH);
         mb_internal_encoding(self::loadConfig('encoding'));
         session_start();
+        $this->_benchmark->mark("init_complete");
     }
     
     /**
@@ -92,7 +93,9 @@ class Application {
             print $this->_controller->buffer;
         }
         $this->_benchmark->mark("render_complete");
-        $this->_benchmark->report();
+        if(self::loadConfig('debug') == 1){
+            $this->_benchmark->report();
+        }
     }
     
     /**

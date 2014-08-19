@@ -10,14 +10,14 @@ class Benchmark {
     private $marker = array();
     
     /**
-     * 
+     * Contructor class
      */
     public function __construct() {
         $this->marker['init'] = microtime(true);
     }
     
     /**
-     * 
+     * Creates a marker point in the time line.
      * @param type $name
      */
     public function mark($name) {
@@ -25,12 +25,15 @@ class Benchmark {
 	}
     
     /**
-     * 
+     * Generate a report with the diference between markers
      */
     public function report(){
-        for($i=0;$i<count($this->marker);$i++){
-            echo $this->marker[$i];
+        echo "<table>";
+        foreach($this->marker as $mark => $value){
+            $diference = $value - $this->marker['init'];
+            echo "<tr><td>".$mark."</td><td>".$diference."</td></tr>";
         }
+        echo "</table>";
     }
     
 }

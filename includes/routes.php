@@ -12,5 +12,3 @@ $route['default_404'] = 'notfound';
 $route['default_offline'] = 'offline';
 /* user-defined routes */
 $route['home'] = 'demo';
-/* example of a restfull route */
-//$route['api/user/(:int)'] = array('api/user/$1','GET');

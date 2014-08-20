@@ -1,9 +1,9 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Default "offline" controller here you can custom the 
- * offline page.
+ * Default "offline" controller here you can custom the offline page.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
+ * @subpackage Controller
  * @version 1.0
  */
 class Offline extends Controller {

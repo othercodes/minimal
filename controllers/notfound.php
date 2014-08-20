@@ -3,7 +3,8 @@
  * Default "notfound" controller here yo can custom the 404 redirections.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
- * @version 2.8.20140310
+ * @subpackage Controller
+ * @version 1.0
  */
 class Notfound extends Controller {
 

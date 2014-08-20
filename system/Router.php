@@ -4,6 +4,7 @@
  * to the controllers and corresponding methods
  * @author David Unay Santisteban <slavepens@gamil.com>
  * @package SlaveFramework
+ * @subpackage System
  * @version 1.0
  */
 class Router {

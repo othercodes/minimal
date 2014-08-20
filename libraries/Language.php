@@ -4,6 +4,7 @@
  * Manages variables text replacements.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
+ * @subpackage Libraries
  * @version 1.3
  */
 class Language {

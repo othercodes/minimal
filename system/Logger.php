@@ -3,6 +3,7 @@
  * System Log
  * @author David Unay Santisteban <slavepens@gamil.com>
  * @package SlaveFramework
+ * @subpackage System
  * @version 1.0
  */
 class Logger {

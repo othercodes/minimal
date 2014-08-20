@@ -4,7 +4,8 @@
  * Check if files in a directory have been altered.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
- * @copyright (c) 2014, David Unay Santisteban
+ * @subpackage Libraries
+ * @version 1.0
  */
 class integrity {
     

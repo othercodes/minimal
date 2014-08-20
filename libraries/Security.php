@@ -4,6 +4,7 @@
  * It offers several security features.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
+ * @subpackage Libraries
  * @version 1.0.20140520
  */
 class Security {

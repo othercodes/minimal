@@ -4,7 +4,7 @@
  * Managing file uploads to the server.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
- * @copyright (c) 2014, David Unay Santisteban
+ * @subpackage Libraries
  * @version 1.0
  */
 class Upload {

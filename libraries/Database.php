@@ -4,6 +4,7 @@
  * Class that acts as abstract layer with the database, based on PDO.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
+ * @subpackage Libraries
  * @version 2.8.20140310
  */
 class Database {

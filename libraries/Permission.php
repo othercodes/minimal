@@ -4,8 +4,8 @@
  * Manage permissions for files in a directory.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
- * @copyright (c) 2014, David Unay Santisteban
- * @license http://www.gnu.org/licenses/gpl.txt GPLv3 
+ * @subpackage Libraries
+ * @version 1.0
  */
 class Permission {
     

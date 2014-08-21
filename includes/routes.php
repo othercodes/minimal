@@ -6,9 +6,9 @@
  * @version 1.0
  */
 
-/* Default routes, DO NOT DELETE!!! */
-$route['default_controller'] = 'home';
-$route['default_404'] = 'notfound';
-$route['default_offline'] = 'offline';
-/* user-defined routes */
-$route['home'] = 'demo';
+$this->get('default_controller', 'home');
+$this->get('default_404', 'notfound');
+$this->get('default_offline', 'offline');
+
+$this->post('home', 'demo');
+$this->get('offline', 'offline');

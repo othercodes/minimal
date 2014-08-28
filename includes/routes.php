@@ -10,5 +10,5 @@ $this->get('default_controller', 'home');
 $this->get('default_404', 'notfound');
 $this->get('default_offline', 'offline');
 
-$this->post('home', 'demo');
+$this->get('home', 'demo');
 $this->get('offline', 'offline');

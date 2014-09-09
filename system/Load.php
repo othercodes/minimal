@@ -55,7 +55,14 @@ class Load {
         if(!@include VIEWS_PATH.$traverse['views'].".php"){
             echo "Erro loading ".$traverse['views']." view";
         }
+        
         $instance->buffer .= ob_get_clean();
+        
+        if(Application::loadConfig('compress') == 1){
+            $search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
+            $replace = array('>','<','\\1');
+            $instance->buffer = preg_replace($search,$replace,$instance->buffer);
+        }
     }
     
 

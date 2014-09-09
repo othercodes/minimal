@@ -21,7 +21,7 @@ class Cache {
     public function __construct() {
         $this->enable = Application::loadConfig('cache');
         $this->_folder = Application::loadConfig('cache_path');
-        $this->_cachetime = Application::loadConfig('cachetime');
+        $this->_cachetime = Application::loadConfig('cache_time');
     }
     
     /**

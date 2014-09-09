@@ -5,13 +5,61 @@
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @subpackage Libraries
- * @version 1.0
+ * @version 1.2
  */
 
 class Input {
     
+    private $post = array();
+    private $get = array();
+    
+    /**
+     * Dump all the POST and GET data 
+     * in privates variables.
+     */
     function __construct() {
-        //do something
+        foreach($_POST as $key => $value){
+            $this->post[$key] = $value;
+        }
+        unset($_POST);
+        foreach($_GET as $key => $value){
+            $this->get[$key] = $value;
+        }
+        unset($_GET);
+    }
+    
+    /**
+     * Filter the post values allowing 
+     * only the expected values.
+     * @param array $expected
+     * @return boolean
+     */
+    public function expectedPost($expected){
+        if(!is_array($expected)){
+            return FALSE;
+        }
+        foreach($this->post as $key => $value){
+            if(!in_array($key,$expected)){
+                unset($this->post[$key]);
+            }
+        }
+    }
+    
+    /**
+     * Filter the get values allowing 
+     * only the expected values.
+     * @param array $expected
+     * @return boolean
+     */
+    public function expectedGet($expected){
+        if(!is_array($expected)){
+            return FALSE;
+        }
+        foreach($this->post as $key => $value){
+            if(!in_array($key,$expected)){
+                unset($this->post[$key]);
+            }
+        }
     }
     
     /**
@@ -20,14 +68,10 @@ class Input {
      * @return mixed
      */
     public function post($index = null){
-        $post = array();
-        foreach($_POST as $key => $value){
-            $post[$key] = $value;
-        }
         if($index){
-            return $post[$index];
+            return $this->post[$index];
         }
-        return $post;
+        return $this->post;
     }
     
     /**
@@ -36,13 +80,9 @@ class Input {
      * @return mixed
      */
     public function get($index = null){
-        $get = array();
-        foreach($_GET as $key => $value){
-            $get[$key] = $value;
-        }
         if($index){
-            return $get[$index];
+            return $this->get[$index];
         }
-        return $get;
+        return $this->get;
     }
 }

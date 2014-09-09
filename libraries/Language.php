@@ -5,7 +5,7 @@
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @subpackage Libraries
- * @version 1.3
+ * @version 1.4
  */
 class Language {
     
@@ -19,10 +19,10 @@ class Language {
     }
 
     /**
-     * Traduce una palabra concreta a un idioma dado.
-     * @param string $ref referencia de la traduccion.
+     * Remplace a variable with the correct text/word.
+     * @param string $ref
      */
-    public function translate($ref){
+    public function translate($ref,$capitalize = null){
         if(isset($_SESSION['language'])) {
             if(!@require $this->loadLanguage($_SESSION['language'])){
                 echo "Error loading ".$_SESSION['language']." translation";
@@ -33,14 +33,40 @@ class Language {
             }
         }
         if(array_key_exists($ref, $dictionary)){
-            echo $dictionary[$ref];
+            if(isset($capitalize)){
+                echo $this->transform($dictionary[$ref],$capitalize);
+            }else {
+               echo $dictionary[$ref];
+            }
         } else {
             echo "Translation not found";
         }
     }
     
     /**
-     * Carga el archivo de lenguaje apropiado.
+     * Capitalize the text
+     * @param string $string
+     * @param string $type
+     * @return boolean
+     */
+    private function transform($string,$type){
+        if(!isset($string)){
+            return FALSE;
+        }
+        switch ($type) {
+            case 'UPPER':
+                return strtoupper($string);
+            case 'LOWER':
+                return strtolower($string);
+            case 'WORDS':
+                return ucwords($string);
+            case 'FIRST':
+                return ucfirst($string);
+        }
+    }
+    
+    /**
+     * Load the requested laguage file. 
      * @param string $lang codigo de lenguaje
      * @return array
      */

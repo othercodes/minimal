@@ -14,16 +14,16 @@ class Input {
     private $get = array();
     
     /**
-     * Dump all the POST and GET data 
+     * Dump and sanitize all the POST and GET data
      * in privates variables.
      */
     function __construct() {
         foreach($_POST as $key => $value){
-            $this->post[$key] = $value;
+            $this->post[$key] = htmlspecialchars($value, ENT_QUOTES);
         }
         unset($_POST);
         foreach($_GET as $key => $value){
-            $this->get[$key] = $value;
+            $this->get[$key] = htmlspecialchars($value, ENT_QUOTES);
         }
         unset($_GET);
     }

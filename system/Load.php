@@ -36,6 +36,18 @@ class Load {
     }
     
     /**
+     * Loads a new instance of the database class with a new connect config.
+     * @param string $setup the name of the class in the inlcudes/dbconfig.php file
+     * @return \Database
+     */
+    public function database($setup){
+        if(!@include_once LIBRARIES_PATH.'Database.php'){
+            die ("Error loading Database class.");
+        }
+        return new Database($setup);
+    }
+    
+    /**
      * Allow to the app to join data with the views
      * @param type $traverse
      */

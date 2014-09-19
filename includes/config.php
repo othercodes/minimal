@@ -10,7 +10,7 @@ class Config {
 
     public $offline     = 0;
     public $encoding    = 'UTF-8';
-    public $language    = 'en_US';
+    public $language    = 'es_ES';
     public $log_path    = 'logs';
     public $cache       = 0;
     public $cache_path  = 'cache';

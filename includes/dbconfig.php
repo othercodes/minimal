@@ -5,7 +5,20 @@
  * @package SlaveFramework
  * @version 1.0
  */
-class Dbconfig {
+class DefaultDB {
+    public $driver = 'mysql';
+    public $dbhost = 'localhost';
+    public $dbuser = 'root';
+    public $dbpass = 'root';
+    public $dbname = 'test';
+    public $prefix = 'pfx_';
+}
+
+/**
+ * Custom connection class, you can create as many as you want
+ * each one for a diferent database connection.
+ */
+class Custom {
     public $driver = 'mysql';
     public $dbhost = 'localhost';
     public $dbuser = 'root';

@@ -53,11 +53,11 @@ class Database {
     /**
      * Class constructor.
      */
-    public function __construct() {
-        if(!@include INCLUDE_PATH.'dbconfig.php'){
+    public function __construct($setup = 'DefaultDB') {
+        if(!@include_once INCLUDE_PATH.'dbconfig.php'){
             die ("Error loading dbconfig.php.");
         }
-        $this->cfg = new Dbconfig();  
+        $this->cfg = new $setup();
         try {
             $this->instance = new PDO(
                     $this->cfg->driver.':host='.$this->cfg->dbhost.';dbname='.$this->cfg->dbname, 

@@ -85,4 +85,12 @@ class Input {
         }
         return $this->get;
     }
+    
+    /**
+     * Get the json data from the raw input stream.
+     * @return mixed
+     */
+    public function getJsonRequest(){
+        return json_decode(file_get_contents('php://input'), true);
+    }
 }

@@ -7,7 +7,7 @@
  * @subpackage Libraries
  * @version 2.8.20140310
  */
-class Database {
+Class Database {
     
     /**
      * DB config.
@@ -301,9 +301,6 @@ class Database {
         }
         // always return 1 on a SELECT
         $this->affectedRows = $this->stmt->rowCount();
-        if ($this->affectedRows == 0){
-            $this->sentinel = FALSE;
-        }
     }
     
     /**

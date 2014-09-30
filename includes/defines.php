@@ -5,7 +5,6 @@
  * @package SlaveFramework
  * @version 1.0
  */
-defined('DACCESS') or die('Acceso restringido!');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(dirname(__FILE__)));

@@ -65,7 +65,7 @@ class Load {
             }
         }
         if(!@include VIEWS_PATH.$traverse['views'].".php"){
-            echo "Erro loading ".$traverse['views']." view";
+            echo "Error loading ".$traverse['views']." view";
         }
         
         $instance->buffer .= ob_get_clean();

@@ -13,6 +13,7 @@ $classes = array(
     'Database'      => 'libraries',
     'Language'      => 'libraries',
     'Permission'    => 'libraries',
+    'Pagination'    => 'libraries',
     'Integrity'     => 'libraries',
     'Input'         => 'libraries',
     'Upload'        => 'libraries',

@@ -50,4 +50,36 @@ class Security {
         $hash = md5(md5($password).$salt);
         return $hash;
     }
+    
+    
+    /**
+     * Encripta una cadena usando AES-256-CBC
+     * @param string $string
+     * @param string $secret_key
+     * @param string $secret_iv
+     * @return type
+     */
+    public function encrypt($string,$secret_key,$secret_iv) {
+        $output = false;
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        $output = openssl_encrypt($string, 'AES-256-CBC', $key, 0, $iv);
+        $output = base64_encode($output);
+        return $output;
+    }
+
+    /**
+     * Desencripta una cadena usando AES-256-CBC
+     * @param string $string
+     * @param string $secret_key
+     * @param string $secret_iv
+     * @return string
+     */
+    public function decrypt($string,$secret_key,$secret_iv) {
+        $output = false;
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        $output = openssl_decrypt(base64_decode($string), 'AES-256-CBC', $key, 0, $iv);
+        return $output;
+    }
 }

@@ -24,11 +24,11 @@ class Language {
      */
     public function translate($ref,$capitalize = null){
         if(isset($_SESSION['language'])) {
-            if(!@require $this->loadLanguage($_SESSION['language'])){
+            if(!@include $this->loadLanguage($_SESSION['language'])){
                 echo "Error loading ".$_SESSION['language']." translation";
             }
         } else {
-            if(!@require $this->loadLanguage($this->default)){
+            if(!@include $this->loadLanguage($this->default)){
                 echo "Error loading ".$this->default." translation";
             }
         }

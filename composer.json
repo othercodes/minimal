@@ -1,0 +1,29 @@
+{
+  "name": "slavepens/slave",
+  "description": "Simple user messaging tool for Laravel",
+  "keywords": [
+    "laravel",
+    "messenger",
+    "messaging",
+    "user messaging"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Unay Santisteban",
+      "email": "slavepens@gmail.com",
+      "homepage": "https://othercode.es/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Libraries\\": "libraries/",
+      "System\\": "system/",
+      "Configuration\\": "configuration/"
+    }
+  }
+}

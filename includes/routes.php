@@ -1,6 +1,6 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 /**
- * Definition of the url access. 
+ * Definition of the url access.
  * @author David Unay Santisteban <slavepens@gmail.com>
  * @package SlaveFramework
  * @version 1.0

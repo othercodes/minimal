@@ -1,4 +1,4 @@
-<?php defined('DACCESS') or die ('Acceso restringido!');
+<?php namespace System;
 /**
  * Benchmark system.
  * @author David Unay Santisteban <slavepens@gamil.com>
@@ -6,35 +6,39 @@
  * @subpackage System
  * @version 1.0
  */
-class Benchmark {
-    
+class Benchmark
+{
+
     private $marker = array();
-    
+
     /**
-     * Contructor class
+     * Constructor class
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->marker['init'] = microtime(true);
     }
-    
+
     /**
      * Creates a marker point in the time line.
-     * @param type $name
+     * @param string $name
      */
-    public function mark($name) {
-		$this->marker[$name] = microtime(true);
-	}
-    
+    public function mark($name)
+    {
+        $this->marker[$name] = microtime(true);
+    }
+
     /**
      * Generate a report with the diference between markers
      */
-    public function report(){
+    public function report()
+    {
         echo "<table>";
-        foreach($this->marker as $mark => $value){
+        foreach ($this->marker as $mark => $value) {
             $diference = $value - $this->marker['init'];
-            echo "<tr><td>".$mark."</td><td>".$diference."</td></tr>";
+            echo "<tr><td>" . $mark . "</td><td>" . $diference . "</td></tr>";
         }
         echo "</table>";
     }
-    
+
 }

@@ -1,16 +1,24 @@
 <?php defined('DACCESS') or die ('Acceso restringido!');
 
-/* Establish error levels */
-error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
+error_reporting(E_ALL);
 
-/* Import the definition file paths. */
-if(!@include 'includes/defines.php'){
-    die ("Error loading defines.php");
-}
+/**
+ * Definition of system paths.
+ */
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__FILE__));
 
-/* Load the main system libraries. */
-spl_autoload_register(function ($class) {
-    if(!@require SYSTEM_PATH. $class . '.php'){
-        echo "Error loading ".$class." class";
-    }
-});
+/* main system paths */
+define('CONFIGURATION_PATH', ROOT . DS . 'configuration' . DS);
+define('LIBRARIES_PATH', ROOT . DS . 'libraries' . DS);
+define('INCLUDE_PATH', ROOT . DS . 'includes' . DS);
+define('SYSTEM_PATH', ROOT . DS . 'system' . DS);
+define('CTRLS_PATH', ROOT . DS . 'controllers' . DS);
+define('MODLS_PATH', ROOT . DS . 'models' . DS);
+define('VIEWS_PATH', ROOT . DS . 'views' . DS);
+define('LANG_PATH', ROOT . DS . 'languages' . DS);
+
+/**
+ * Composer autoload
+ */
+include_once "vendor/autoload.php";

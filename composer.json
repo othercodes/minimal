@@ -1,13 +1,7 @@
 {
-  "name": "slavepens/slave",
-  "description": "Simple user messaging tool for Laravel",
-  "keywords": [
-    "laravel",
-    "messenger",
-    "messaging",
-    "user messaging"
-  ],
-  "license": "MIT",
+  "name": "slavepens/slaveframework",
+  "description": "Small and light framework to create web app and rest api",
+  "license": "GPL-3.0",
   "authors": [
     {
       "name": "Unay Santisteban",
@@ -17,7 +11,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.3.3"
   },
   "autoload": {
     "psr-4": {

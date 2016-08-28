@@ -10,15 +10,23 @@
 
 class Input
 {
-
+    /**
+     * POST variables
+     * @var array
+     */
     private $post = array();
+
+    /**
+     * GET variables
+     * @var array
+     */
     private $get = array();
 
     /**
      * Dump and sanitize all the POST and GET data
      * in privates variables.
      */
-    function __construct()
+    public function __construct()
     {
         foreach ($_POST as $key => $value) {
             $this->post[$key] = htmlspecialchars($value, ENT_QUOTES);
@@ -31,50 +39,17 @@ class Input
     }
 
     /**
-     * Filter the post values allowing
-     * only the expected values.
-     * @param array $expected
-     * @return boolean
-     */
-    public function expectedPost($expected)
-    {
-        if (!is_array($expected)) {
-            return FALSE;
-        }
-        foreach ($this->post as $key => $value) {
-            if (!in_array($key, $expected)) {
-                unset($this->post[$key]);
-            }
-        }
-    }
-
-    /**
-     * Filter the get values allowing
-     * only the expected values.
-     * @param array $expected
-     * @return boolean
-     */
-    public function expectedGet($expected)
-    {
-        if (!is_array($expected)) {
-            return FALSE;
-        }
-        foreach ($this->post as $key => $value) {
-            if (!in_array($key, $expected)) {
-                unset($this->post[$key]);
-            }
-        }
-    }
-
-    /**
      * Get data from POST method
      * @param string $index
      * @return mixed
      */
     public function post($index = null)
     {
-        if ($index) {
-            return $this->post[$index];
+        if (isset($index)) {
+            if (isset($this->post[$index])) {
+                return $this->post[$index];
+            }
+            return null;
         }
         return $this->post;
     }
@@ -86,8 +61,11 @@ class Input
      */
     public function get($index = null)
     {
-        if ($index) {
-            return $this->get[$index];
+        if (isset($index)) {
+            if (isset($this->get[$index])) {
+                return $this->get[$index];
+            }
+            return null;
         }
         return $this->get;
     }

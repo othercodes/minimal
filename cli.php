@@ -6,4 +6,6 @@ require 'framework.php';
 
 $app = new \Minimal\Application('cli');
 
+$app->run();
+
 var_dump($app);

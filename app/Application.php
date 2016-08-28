@@ -30,16 +30,26 @@ class Application
      */
     public function __construct($type = 'web')
     {
-        if (!in_array($type, array('web', 'cli'))){
+        if (!in_array($type, array('web', 'cli'))) {
             throw new \Minimal\Exceptions\ApplicationException('Invalid application type.');
         }
+
+        session_start();
 
         $this->type = strtolower($type);
         $this->kernel = \OtherCode\FController\FController::getInstance();
 
         $engine = '\Minimal\Engines\\' . strtoupper($this->type);
         $this->engine = new $engine();
+    }
 
-        session_start();
+    public function addRoute()
+    {
+
+    }
+
+    public function run()
+    {
+
     }
 }

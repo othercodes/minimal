@@ -1,6 +1,6 @@
 <?php
 
-defined('DACCESS') or die ('Acceso restringido!');
+defined('DACCESS') or die;
 
 /**
  * Autoload systems

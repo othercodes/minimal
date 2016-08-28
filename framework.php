@@ -1,24 +1,32 @@
-<?php defined('DACCESS') or die ('Acceso restringido!');
+<?php
 
-error_reporting(E_ALL);
+defined('DACCESS') or die ('Acceso restringido!');
+
+/**
+ * Autoload systems
+ */
+require_once 'vendor/autoload.php';
+require_once 'app/autoload.php';
 
 /**
  * Definition of system paths.
  */
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(__FILE__));
-
-/* main system paths */
-define('CONFIGURATION_PATH', ROOT . DS . 'configuration' . DS);
-define('LIBRARIES_PATH', ROOT . DS . 'libraries' . DS);
-define('INCLUDE_PATH', ROOT . DS . 'includes' . DS);
-define('SYSTEM_PATH', ROOT . DS . 'system' . DS);
-define('CTRLS_PATH', ROOT . DS . 'controllers' . DS);
-define('MODLS_PATH', ROOT . DS . 'models' . DS);
-define('VIEWS_PATH', ROOT . DS . 'views' . DS);
-define('LANG_PATH', ROOT . DS . 'languages' . DS);
+define('ROOT_PATH', dirname(__FILE__));
+define('APP_PATH', ROOT_PATH . '/app');
 
 /**
- * Composer autoload
+ * Custom error handler, transform any error into exception
  */
-include_once "vendor/autoload.php";
+set_error_handler(function ($level, $message, $file, $line) {
+    if (!(error_reporting() & $level)) {
+        return null;
+    }
+    throw new \Exception($message . ' at ' . $file . ':' . $line, 500);
+});
+
+/**
+ * Load the actual framework
+ */
+$loader = new Autoload();
+$loader->addNamespace('Minimal', APP_PATH);
+$loader->register();

@@ -21,5 +21,3 @@ class MainConfig extends BaseConfig
     public $debug = 0;
     public $compress = 1;
 }
-
-;

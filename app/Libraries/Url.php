@@ -10,15 +10,6 @@
 
 class Url
 {
-
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        // do something
-    }
-
     /**
      * Returns the base URL of the system
      * @return string

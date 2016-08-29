@@ -1,9 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace Minimal\Controllers;
 
-
-class Notfound extends \Minimal\Controller
+class NotFound extends \Minimal\Controller
 {
     public function index()
     {

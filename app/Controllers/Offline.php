@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace Minimal\Controllers;
 
 class Offline extends \Minimal\Controller
 {

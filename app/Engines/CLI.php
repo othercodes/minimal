@@ -8,7 +8,7 @@ namespace Minimal\Engines;
  * @version 1.0
  * @package app\Engines
  */
-class CLI
+class CLI extends \Minimal\Engines\Engine
 {
 
 }

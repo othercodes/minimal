@@ -1,6 +1,6 @@
 <?php
 
-namespace Minimal\System;
+namespace Minimal;
 
 class Controller extends \OtherCode\FController\Modules\BaseModule
 {

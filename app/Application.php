@@ -45,7 +45,8 @@ class Application
         $this->engine = new $engine($this->configuration);
 
         $this->setControllers(array(
-            'notfound' => 'Minimal\Controllers\NotFound'
+            'errors' => 'Minimal\Controllers\Errors',
+            'help' => 'Minimal\Controllers\Help'
         ));
     }
 

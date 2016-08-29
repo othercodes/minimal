@@ -70,6 +70,6 @@ class WEB extends \Minimal\Engines\Engine
                 return $call;
             }
         }
-        return new \Minimal\Call('/', 'notfound.index', 'GET', 'html');
+        return new \Minimal\Call('/', 'errors.notfound', 'GET', 'notfound.html');
     }
 }

@@ -12,13 +12,7 @@
   ],
   "require": {
     "php": ">=5.3.3",
-    "othercode/fcontroller": "1.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Libraries\\": "libraries/",
-      "System\\": "system/",
-      "Configuration\\": "configuration/"
-    }
+    "othercode/fcontroller": "1.*",
+    "twig/twig": "~1.0"
   }
 }

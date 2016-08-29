@@ -6,7 +6,10 @@ require 'framework.php';
 
 $app = new \Minimal\Application('web');
 
-$app->get('/sayhello/to/{:str}/{:int}', 'say.hello');
-$app->get('/saygoodbye/{:str}', 'say.goodbye');
+$app->setControllers(array(
+    'demo' => 'Minimal\Controllers\Demo'
+));
+
+$app->get('/sayhello/to/{:str}/{:int}', 'demo.index');
 
 $app->run();

@@ -48,7 +48,7 @@ class Call
      */
     public function __construct($pattern, $controller, $method = 'GET', $view = null)
     {
-        $this->pattern = trim($pattern, '/');
+        $this->pattern = ($pattern === '/') ? $pattern : trim($pattern, '/');
         $this->controller = $controller;
         $this->method = strtoupper($method);
         $this->view = $view;

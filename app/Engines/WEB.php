@@ -39,10 +39,13 @@ class WEB extends \Minimal\Engines\Engine
         '/' => '\/',
     );
 
+    /**
+     * WEB constructor.
+     * @param \OtherCode\FController\Components\Registry $configuration
+     */
     public function __construct(\OtherCode\FController\Components\Registry $configuration)
     {
         parent::__construct($configuration);
-
         $len = strlen($_SERVER['REQUEST_URI']) - (strlen($_SERVER['SCRIPT_NAME']) - 9);
         $this->uri = ($len === 0) ? '/' : trim(substr($_SERVER['REQUEST_URI'], -$len), '/');
         $this->baseurl = substr($_SERVER['SCRIPT_NAME'], 0, -10);
@@ -56,7 +59,6 @@ class WEB extends \Minimal\Engines\Engine
     public function process()
     {
         foreach ($this->calls as $call) {
-
             $preparedUri = strtr($call->pattern, $this->patters);
             if (preg_match('/^' . $preparedUri . '$/', $this->uri) === 1 && $this->method === $call->method) {
 
@@ -68,7 +70,6 @@ class WEB extends \Minimal\Engines\Engine
                 return $call;
             }
         }
-
-        return new \Minimal\Call('/', 'default.index', 'GET', 'html');
+        return new \Minimal\Call('/', 'notfound.index', 'GET', 'html');
     }
 }

@@ -4,10 +4,13 @@ namespace Minimal\Controllers;
 
 class Demo extends \Minimal\Controller
 {
-
-    public function index()
+    public function index($user, $id)
     {
-        $data['demo'] = 'Demo';
-        $this->load->view('demo', $data);
+        $this->context->view = 'default.html';
+
+        return (object)array(
+            'id' => $id,
+            'user' => $user
+        );
     }
 }

@@ -14,12 +14,6 @@ class Application
     protected $configuration;
 
     /**
-     * Application type WEB/CLI
-     * @var string
-     */
-    protected $type;
-
-    /**
      * Application Engine WEB/CLI
      * @var \Minimal\Engines\Engine
      */
@@ -44,31 +38,39 @@ class Application
 
         session_start();
 
-        $this->type = strtolower($type);
         $this->kernel = \OtherCode\FController\FController::getInstance();
-
         $this->configuration = new \OtherCode\FController\Components\Registry();
 
-        $engine = '\Minimal\Engines\\' . strtoupper($this->type);
+        $engine = '\Minimal\Engines\\' . strtoupper($type);
         $this->engine = new $engine($this->configuration);
-    }
 
-    public function configure()
-    {
-
+        $this->setControllers(array(
+            'notfound' => 'Minimal\Controllers\NotFound'
+        ));
     }
 
     /**
-     * Add a new call to the engine (WEB only)
-     * @param string $path
-     * @param string $controller
-     * @param string $method
-     * @param string|null $view
+     * Load a list of controllers
+     * @param array $controllers
      * @return $this
      */
-    public function add($path, $controller, $method = 'GET', $view = null)
+    public function setControllers(array $controllers)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, $method, $view));
+        foreach ($controllers as $name => $controller) {
+            $this->setController($name, $controller);
+        }
+        return $this;
+    }
+
+    /**
+     * Load a single controller
+     * @param string $name
+     * @param string $controller
+     * @return $this
+     */
+    public function setController($name, $controller)
+    {
+        $this->kernel->setModule($name, $controller);
         return $this;
     }
 
@@ -217,10 +219,9 @@ class Application
 
             $response = $this->kernel->run($call->controller, $call->parameters);
 
-            var_dump($response);
-
-            // process the views.
-
+            if (isset($call->view)) {
+                $this->render($call->view, $response);
+            }
 
         } catch (\Exception $e) {
 
@@ -228,5 +229,16 @@ class Application
             throw new \Minimal\Exceptions\ApplicationException($e->getMessage(), $e->getCode());
 
         }
+    }
+
+    /**
+     * Render a view
+     * @param string $view
+     * @param object $model
+     */
+    public function render($view, $model)
+    {
+        $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(APP_PATH . '/Views'));
+        print $twig->render($view . '.twig', array('model' => $model));
     }
 }

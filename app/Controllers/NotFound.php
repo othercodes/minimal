@@ -6,11 +6,11 @@ class NotFound extends \Minimal\Controller
 {
     public function index()
     {
-        // set the message
-        $data['title'] = "Page not Found";
-        $data['message'] = "The requested page is not available.";
-        // load data into the template
-        $this->load->view('errors/404', $data);
-    }
+        $this->context->view = 'errors/404.html';
 
+        return (object)array(
+            'title' => 'Error 404',
+            'message' => 'Whoops! 404 page not found'
+        );
+    }
 }

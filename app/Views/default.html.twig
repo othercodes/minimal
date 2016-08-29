@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>404</title>
+    <title><?php echo $demo; ?></title>
 </head>
 <body>
-<h3><?php echo $title; ?></h3>
-
-<p><?php echo $message; ?></p>
+<div>Hello to {{ model.user }} with id {{ model.id }}</div>
 </body>
 </html>

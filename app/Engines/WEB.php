@@ -54,22 +54,22 @@ class WEB extends \Minimal\Engines\Engine
 
     /**
      * Process the routes based on the WEB engine logic.
-     * @return \Minimal\Call
+     * @return \Minimal\Task
      */
     public function process()
     {
-        foreach ($this->calls as $call) {
-            $preparedUri = strtr($call->pattern, $this->patters);
-            if (preg_match('/^' . $preparedUri . '$/', $this->uri) === 1 && $this->method === $call->method) {
+        foreach ($this->tasks as $task) {
+            $preparedUri = strtr($task->pattern, $this->patters);
+            if (preg_match('/^' . $preparedUri . '$/', $this->uri) === 1 && $this->method === $task->method) {
 
                 $uriSegments = array_filter(explode('/', trim($this->uri, '/')));
-                $callSegments = array_filter(explode('/', trim($call->pattern, '/')));
+                $taskSegments = array_filter(explode('/', trim($task->pattern, '/')));
 
-                $call->parameters = array_diff($uriSegments, $callSegments);
+                $task->parameters = array_diff($uriSegments, $taskSegments);
 
-                return $call;
+                return $task;
             }
         }
-        return new \Minimal\Call('/', 'errors.notfound', 'GET', 'notfound.html');
+        return new \Minimal\Task('/', 'errors.notfound', 'GET', 'notfound.html');
     }
 }

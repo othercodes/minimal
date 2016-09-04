@@ -10,7 +10,7 @@ interface EngineInterface
 {
     /**
      * Process the routes based on the WEB engine logic.
-     * @return \Minimal\Call
+     * @return \Minimal\Task
      */
     public function process();
 

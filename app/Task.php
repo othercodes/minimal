@@ -3,10 +3,10 @@
 namespace Minimal;
 
 /**
- * Class Call
+ * Class Task
  * @package Minimal
  */
-class Call
+class Task
 {
     /**
      * Allowed method GET|POST|PUT|PATCH|HEAD|OPTIONS|CONNECT|CLI
@@ -16,7 +16,7 @@ class Call
     public $method;
 
     /**
-     * Call pattern
+     * Task pattern
      * @var string
      */
     public $pattern;
@@ -28,7 +28,7 @@ class Call
     public $controller;
 
     /**
-     * Call parameters
+     * Task parameters
      * @var array
      */
     public $parameters = array();

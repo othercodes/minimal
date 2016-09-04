@@ -9,7 +9,8 @@ namespace Minimal;
 class Application
 {
     /**
-     * @var
+     * Main app configuration
+     * @var \OtherCode\FController\Components\Registry
      */
     protected $configuration;
 
@@ -76,7 +77,7 @@ class Application
     }
 
     /**
-     * Add a new GET call to the engine (WEB only)
+     * Add a new GET task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -84,12 +85,12 @@ class Application
      */
     public function get($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'GET', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'GET', $view));
         return $this;
     }
 
     /**
-     * Add a new POST call to the engine (WEB only)
+     * Add a new POST task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -97,12 +98,12 @@ class Application
      */
     public function post($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'POST', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'POST', $view));
         return $this;
     }
 
     /**
-     * Add a new PUT call to the engine (WEB only)
+     * Add a new PUT task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -110,12 +111,12 @@ class Application
      */
     public function put($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'PUT', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'PUT', $view));
         return $this;
     }
 
     /**
-     * Add a new PATCH call to the engine (WEB only)
+     * Add a new PATCH task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -123,12 +124,12 @@ class Application
      */
     public function patch($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'PATCH', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'PATCH', $view));
         return $this;
     }
 
     /**
-     * Add a new DELETE call to the engine (WEB only)
+     * Add a new DELETE task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -136,12 +137,12 @@ class Application
      */
     public function delete($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'DELETE', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'DELETE', $view));
         return $this;
     }
 
     /**
-     * Add a new OPTIONS call to the engine (WEB only)
+     * Add a new OPTIONS task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -149,12 +150,12 @@ class Application
      */
     public function options($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'OPTIONS', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'OPTIONS', $view));
         return $this;
     }
 
     /**
-     * Add a new HEAD call to the engine (WEB only)
+     * Add a new HEAD task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -162,12 +163,12 @@ class Application
      */
     public function head($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'HEAD', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'HEAD', $view));
         return $this;
     }
 
     /**
-     * Add a new TRACE call to the engine (WEB only)
+     * Add a new TRACE task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -175,12 +176,12 @@ class Application
      */
     public function trace($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'TRACE', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'TRACE', $view));
         return $this;
     }
 
     /**
-     * Add a new CONNECT call to the engine (WEB only)
+     * Add a new CONNECT task to the engine (WEB only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -188,12 +189,12 @@ class Application
      */
     public function connect($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'CONNECT', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'CONNECT', $view));
         return $this;
     }
 
     /**
-     * Add a new CLI call to the engine (CLI only)
+     * Add a new CLI task to the engine (CLI only)
      * @param string $path
      * @param string $controller
      * @param string|null $view
@@ -201,7 +202,7 @@ class Application
      */
     public function cli($path, $controller, $view = null)
     {
-        $this->engine->calls->set(null, new \Minimal\Call($path, $controller, 'CLI', $view));
+        $this->engine->tasks->set(null, new \Minimal\Task($path, $controller, 'CLI', $view));
         return $this;
     }
 
@@ -213,15 +214,15 @@ class Application
     {
         try {
 
-            $call = $this->engine->process();
-            $this->kernel->setService('context', function () use ($call) {
-                return $call;
+            $task = $this->engine->process();
+            $this->kernel->setService('context', function () use ($task) {
+                return $task;
             });
 
-            $response = $this->kernel->run($call->controller, $call->parameters);
+            $response = $this->kernel->run($task->controller, $task->parameters);
 
-            if (isset($call->view)) {
-                $this->render($call->view, $response);
+            if (isset($task->view)) {
+                $this->render($task->view, $response);
             }
 
         } catch (\Exception $e) {

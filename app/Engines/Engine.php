@@ -14,7 +14,7 @@ abstract class Engine implements \Minimal\Engines\EngineInterface
      * Routes collection.
      * @var \OtherCode\FController\Components\Registry
      */
-    public $calls;
+    public $tasks;
 
     /**
      * Main configuration
@@ -29,6 +29,6 @@ abstract class Engine implements \Minimal\Engines\EngineInterface
     public function __construct(\OtherCode\FController\Components\Registry $configuration)
     {
         $this->configuration = $configuration;
-        $this->calls = new \OtherCode\FController\Components\Registry();
+        $this->tasks = new \OtherCode\FController\Components\Registry();
     }
 }
